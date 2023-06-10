@@ -1,0 +1,15 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    {% tailwind_css %}
+  </head>
+  <body class="bg-rgb(249, 250, 251) text-black">
+    {% include 'templates/navbar.html' %}
+    <div class="max-w-4xl mx-auto">{% block content %} {% endblock %}</div>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+{% extends 'templates\main.html' %} {% block content %}
+<h1 class="font-extrabold my-6 text-2xl">{{event.name}}</h1>
+<div class="flex flex-wrap gap-8">
+  {% if registered %}
+  <p class="text-xl text-teal-500">
+    You have already registered for this event
+  </p>
+  {% else %}
+  <a
+    class="py-2 px-4 rounded-md bg-teal-400 block mb-4"
+    href="{%url 'registration_confirmation' event.id%}"
+    >Register For Event</a
+  >
+  {% endif %} {% if submitted %}
+  <p class="text-xl text-teal-500">You have already submitted your project</p>
+  {% else %}
+  <a
+    class="py-2 px-4 block rounded-md bg-teal-400 mb-4"
+    href="{%url 'project-submission' event.id%}"
+    >Submit Project</a
+  >
+  {% endif %}
+</div>
+
+<div>
+  <p class="mt-4 text-2xl font-bold">{{event.description|linebreaks|urlize}}</p>
+</div>
+
+<div>
+  <h3 class="text-2xl font-extrabold mt-4">Event Participants</h3>
+  <div id="events--lists" class="flex gap-x-8 text-xl flex-wrap">
+    {% for user in event.participants.all %}
+    <div class="shadow-md px-12 py-8 my-4 rounded-sm">
+      <img class="rounded-full w-12 h-12" src="{{user.avatar.url}}" />
+      <strong>{{user.name}}</strong>
+    </div>
+    {%endfor%}
+  </div>
+</div>
+{%endblock%}

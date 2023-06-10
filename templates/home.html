@@ -1,0 +1,35 @@
+{% extends 'templates\main.html' %} {% block content %}
+<h1 class="text-center mt-4 mb-6 text-2xl font-bold">Home Page</h1>
+
+<section>
+  <h3 class="text-2xl">Events</h3>
+  <div id="events--lists" class="flex text-xl flex-wrap">
+    {% for event in events %}
+    <div class="shadow px-12 py-8 my-4 rounded-sm">
+      <a href="{% url 'event' event.id  %}">
+        <strong><p>{{event.name}}</p></strong>
+        <p>{{event.participants.count}} registered</p>
+        <p>Registration deadline: {{event.registration_deadline}}</p>
+      </a>
+    </div>
+
+    {%endfor%}
+  </div>
+</section>
+
+<section>
+  <h3 class="text-2xl">Users</h3>
+  <div id="users--lists" class="flex text-xl gap-x-8 flex-wrap">
+    {% for user in users %}
+    <div class="shadow-md px-12 py-8 my-4 rounded-sm">
+      <a href="{% url 'user-profile' user.id %}">
+        <div>
+          <img class="rounded-full w-12 h-12" src="{{user.avatar.url}}" />
+          <h4>{{user.name}}</h4>
+        </div>
+      </a>
+    </div>
+    {%endfor%}
+  </div>
+</section>
+{% endblock %}
