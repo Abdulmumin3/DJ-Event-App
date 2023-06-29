@@ -40,7 +40,7 @@ def home_page(request):
     # count = users.count()
     users = users[0:20]
     events = Event.objects.all()
-    return render(request, 'templates\home.html', {'users':users, 'events':events, 'count': count})
+    return render(request, 'templates\home.html', {'users':users, 'events':events,})
 
 def user_page(request, pk):
     user = User.objects.get(id=pk)
