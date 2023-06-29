@@ -18,7 +18,7 @@ def login_page(request):
         if user is not None:
             login(request, user)
             return redirect('home')
-    return render(request, 'templates\login_register.html', {'page':page})
+    return render(request, 'event\login_register.html', {'page':page})
 
 def logout_user(request):
     logout(request)
@@ -33,23 +33,22 @@ def register_page(request):
             form.save()
             return redirect('login')
         
-    return render(request, 'templates\login_register.html', {'page':page, 'form':form})
+    return render(request, 'event\login_register.html', {'page':page, 'form':form})
 
 def home_page(request):
     users = User.objects.filter(hackathon_participant=True)
-    # count = users.count()
     users = users[0:20]
     events = Event.objects.all()
-    return render(request, 'templates\home.html', {'users':users, 'events':events,})
+    return render(request, 'event\home.html', {'users':users, 'events':events})
 
 def user_page(request, pk):
     user = User.objects.get(id=pk)
-    return render(request, 'templates\profile.html', {'user':user})
+    return render(request, 'event\profile.html', {'user':user})
 
 @login_required(login_url='login')
 def account_page(request):
     user = request.user
-    return render(request, 'templates\my_account.html', {'user':user})
+    return render(request, 'event\my_account.html', {'user':user})
 
 
 def event_page(request, pk):
@@ -62,7 +61,7 @@ def event_page(request, pk):
         registered = request.user.events.filter(id=event.id).exists()
         submitted = Submission.objects.filter(participant=request.user, event=event).exists()
         
-    return render(request, 'templates\event.html', {'event':event, 'registered':registered, 'submitted':submitted})
+    return render(request, 'event\event.html', {'event':event, 'registered':registered, 'submitted':submitted})
 
 @login_required(login_url='login')   
 def registration_confirmation(request, pk):
@@ -70,7 +69,7 @@ def registration_confirmation(request, pk):
     if request.method == 'POST':
         event.participants.add(request.user)
         return redirect('event', pk=event.id)
-    return render(request, 'templates\event_confirmation.html', {'event':event})
+    return render(request, 'event\event_confirmation.html', {'event':event})
 
 @login_required(login_url='login')
 def project_submission(request, pk):
@@ -84,7 +83,7 @@ def project_submission(request, pk):
             instance.participant = request.user
             instance.save()
             return redirect('my_account')
-    return render(request, 'templates\submit_form.html', {'event':event, 'form':form})
+    return render(request, 'event\submit_form.html', {'event':event, 'form':form})
 
 @login_required(login_url='login')
 def update_submission(request, pk):
@@ -103,4 +102,4 @@ def update_submission(request, pk):
             instance.participant = request.user
             instance.save()
             return redirect('my_account')
-    return render(request, 'templates\submit_form.html', {'event':event, 'form':form})
+    return render(request, 'event\submit_form.html', {'event':event, 'form':form})
