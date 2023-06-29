@@ -37,7 +37,7 @@ def register_page(request):
 
 def home_page(request):
     users = User.objects.filter(hackathon_participant=True)
-    count = users.count()
+    # count = users.count()
     users = users[0:20]
     events = Event.objects.all()
     return render(request, 'templates\home.html', {'users':users, 'events':events, 'count': count})
