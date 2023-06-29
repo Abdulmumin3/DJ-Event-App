@@ -12,11 +12,16 @@
       href="{% url 'logout' %}"
       >Logout</a
     >
-    {%else%}
+    {% else %}
     <a
       class="py-2 px-4 bg-teal-400 text-white rounded-md"
       href="{% url 'login' %}"
       >Login</a
+    >
+    <a
+      class="py-2 px-4 bg-teal-400 text-white rounded-md"
+      href="{% url 'register' %}"
+      >Register</a
     >
     {% endif %}
   </div>
