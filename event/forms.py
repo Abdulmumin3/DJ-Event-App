@@ -4,6 +4,7 @@ from .models import Submission, User
 from django.contrib.auth.forms import UserCreationForm
 
 class SubmissionForm(ModelForm):
+    details = forms.TextInput()
     class Meta:
         model = Submission
         fields = ['details']
